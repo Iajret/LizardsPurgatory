@@ -5009,6 +5009,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/central)
+"bBQ" = (
+/obj/machinery/vending/wallmed/directional/south,
+/turf/open/floor/wood,
+/area/station/hallway/secondary/service)
 "bBV" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/openspace,
@@ -23275,6 +23279,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
+/obj/machinery/vending/wallmed/directional/east,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit/departure_lounge)
 "gVi" = (
@@ -31052,6 +31057,13 @@
 /obj/effect/turf_decal/siding/brown,
 /turf/open/floor/glass,
 /area/station/maintenance/starboard/fore)
+"jiA" = (
+/obj/effect/turf_decal/trimline/brown/filled/line{
+	dir = 4
+	},
+/obj/machinery/vending/wallmed/directional/east,
+/turf/open/floor/iron,
+/area/station/hallway/primary/starboard)
 "jiD" = (
 /obj/machinery/telecomms/server/presets/common,
 /turf/open/floor/iron/dark/telecomms,
@@ -32366,11 +32378,8 @@
 /obj/effect/turf_decal/trimline/blue/filled/line,
 /obj/structure/table/glass,
 /obj/item/storage/medkit/regular,
-/obj/item/storage/medkit/regular{
-	pixel_x = 0;
-	pixel_y = 5
-	},
 /obj/structure/cable,
+/obj/machinery/vending/wallmed/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/security/medical)
 "jAc" = (
@@ -44324,13 +44333,11 @@
 /area/station/hallway/primary/central)
 "nhD" = (
 /obj/structure/table/glass,
-/obj/item/storage/medkit/regular{
-	pixel_y = 1
-	},
 /obj/machinery/vending/wallmed/directional/west,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
+/obj/item/storage/medkit/advanced,
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "nhE" = (
@@ -50517,6 +50524,10 @@
 	},
 /turf/open/floor/carpet,
 /area/station/security/detectives_office)
+"oVP" = (
+/obj/machinery/vending/wallmed/directional/south,
+/turf/open/floor/iron/large,
+/area/station/hallway/primary/central)
 "oWy" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/engine/hull/reinforced/air,
@@ -57818,6 +57829,13 @@
 /obj/machinery/vending/cigarette/beach,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/hallway/primary/central)
+"rge" = (
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 4
+	},
+/obj/machinery/vending/wallmed/directional/east,
+/turf/open/floor/iron/dark,
+/area/station/engineering/lobby)
 "rgg" = (
 /obj/machinery/door/airlock/security{
 	name = "Interrogation"
@@ -58624,6 +58642,7 @@
 "rrT" = (
 /obj/effect/turf_decal/trimline/purple/filled/line,
 /obj/structure/sign/poster/official/work_for_a_future/directional/south,
+/obj/machinery/vending/wallmed/directional/south,
 /turf/open/floor/iron,
 /area/station/science/research)
 "rrY" = (
@@ -61713,6 +61732,7 @@
 	},
 /obj/machinery/autolathe,
 /obj/structure/sign/poster/official/do_not_question/directional/north,
+/obj/machinery/vending/wallmed/directional/west,
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "soH" = (
@@ -65209,6 +65229,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/plating,
 /area/station/maintenance/hallway/abandoned_recreation)
+"ttO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/wallmed/directional/west,
+/turf/open/floor/iron,
+/area/station/hallway/secondary/construction)
 "ttQ" = (
 /obj/item/weldingtool,
 /turf/open/floor/plating,
@@ -106833,7 +106858,7 @@ gPW
 xRU
 xOn
 xAj
-gse
+bBQ
 own
 wik
 uxl
@@ -113521,7 +113546,7 @@ bOk
 bOk
 wrI
 fjt
-fLr
+oVP
 vuO
 ilg
 wmy
@@ -121546,7 +121571,7 @@ hFi
 hFi
 hFi
 hFi
-hFi
+ttO
 gnT
 hFi
 hFi
@@ -122024,7 +122049,7 @@ iYq
 caE
 dUe
 oDH
-oDH
+jiA
 iKT
 oDH
 oDH
@@ -125857,7 +125882,7 @@ xSq
 irJ
 grE
 rTW
-dPD
+rge
 dPD
 dPD
 sNK
