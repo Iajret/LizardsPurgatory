@@ -1,61 +1,5 @@
-<<<<<<< HEAD:code/datums/dna.dm
 //NOVA EDIT REMOVAL BEGIN - CUSTOMIZATION (moved to modular_nova/modules/customization/code/datums/dna.dm)
 /*
-/**
- * Some identity blocks (basically pieces of the unique_identity string variable of the dna datum, commonly abbreviated with ui)
- * may have a length that differ from standard length of 3 ASCII characters. This list is necessary
- * for these non-standard blocks to work, as well as the entire unique identity string.
- * Should you add a new ui block which size differ from the standard (again, 3 ASCII characters), like for example, a color,
- * please do not forget to also include it in this list in the following format:
- *  "[dna block number]" = dna block size,
- * Failure to do that may result in bugs. Thanks.
- */
-GLOBAL_LIST_INIT(identity_block_lengths, list(
-		"[DNA_HAIR_COLOR_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
-		"[DNA_FACIAL_HAIR_COLOR_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
-		"[DNA_EYE_COLOR_LEFT_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
-		"[DNA_EYE_COLOR_RIGHT_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
-	))
-
-/**
- * The same rules of the above also apply here, with the exception that this is for the unique_features string variable
- * (commonly abbreviated with uf) and its blocks. Both ui and uf have a standard block length of 3 ASCII characters.
- */
-GLOBAL_LIST_INIT(features_block_lengths, list(
-		"[DNA_MUTANT_COLOR_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
-		"[DNA_ETHEREAL_COLOR_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
-	))
-
-/**
-
- * Some identity blocks (basically pieces of the unique_identity string variable of the dna datum, commonly abbreviated with ui)
- * may have a length that differ from standard length of 3 ASCII characters. This list is necessary
- * for these non-standard blocks to work, as well as the entire unique identity string.
- * Should you add a new ui block which size differ from the standard (again, 3 ASCII characters), like for example, a color,
- * please do not forget to also include it in this list in the following format:
- *  "[dna block number]" = dna block size,
- * Failure to do that may result in bugs. Thanks.
- */
-GLOBAL_LIST_INIT(identity_block_lengths, list(
-		"[DNA_HAIR_COLOR_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
-		"[DNA_FACIAL_HAIR_COLOR_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
-		"[DNA_EYE_COLOR_LEFT_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
-		"[DNA_EYE_COLOR_RIGHT_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
-		"[DNA_HAIR_COLOR_GRADIENT_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
-		"[DNA_FACIAL_HAIR_COLOR_GRADIENT_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
-	))
-
-/**
- * The same rules of the above also apply here, with the exception that this is for the unique_features string variable
- * (commonly abbreviated with uf) and its blocks. Both ui and uf have a standard block length of 3 ASCII characters.
- */
-GLOBAL_LIST_INIT(features_block_lengths, list(
-		"[DNA_MUTANT_COLOR_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
-		"[DNA_ETHEREAL_COLOR_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
-	))
-
-=======
->>>>>>> b01756b97c4 (Datumizes DNA blocks, makes DNA cleaner in general (#92061)):code/datums/dna/dna.dm
 /**
  * A list of numbers that keeps track of where ui blocks start in the unique_identity string variable of the dna datum.
  * Commonly used by the datum/dna/set_uni_identity_block and datum/dna/get_uni_identity_block procs.
@@ -80,19 +24,12 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /proc/populate_total_uf_len_by_block()
 	. = list()
 	var/total_block_len = 1
-<<<<<<< HEAD:code/datums/dna.dm
-	for(var/blocknumber in 1 to DNA_FEATURE_BLOCKS)
-		. += total_block_len
-		total_block_len += GET_UF_BLOCK_LEN(blocknumber)
-*/
-//NOVA EDIT REMOVAL END
-=======
 	for(var/block_path in GLOB.dna_feature_blocks)
 		var/datum/dna_block/feature/block = GLOB.dna_feature_blocks[block_path]
 		.[block_path] += total_block_len
 		total_block_len += block.block_length
-
->>>>>>> b01756b97c4 (Datumizes DNA blocks, makes DNA cleaner in general (#92061)):code/datums/dna/dna.dm
+*/
+//NOVA EDIT REMOVAL END
 /////////////////////////// DNA DATUM
 /datum/dna
 	///An md5 hash of the dna holder's real name
@@ -347,50 +284,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	var/datum/dna_block/identity/block = GLOB.dna_identity_blocks[blocktype]
 	unique_identity = block.modified_hash(unique_identity, block.unique_block(holder))
 
-<<<<<<< HEAD:code/datums/dna.dm
-//NOVA EDIT REMOVAL BEGIN - CUSTOMIZATION (moved to modular_nova/modules/customization/code/datums/dna.dm)
-/*
-/datum/dna/proc/update_uf_block(blocknumber)
-	if(!blocknumber)
-		CRASH("UF block index is null")
-	if(!ishuman(holder))
-		CRASH("Non-human mobs shouldn't have DNA")
-	switch(blocknumber)
-		if(DNA_MUTANT_COLOR_BLOCK)
-			set_uni_feature_block(blocknumber, sanitize_hexcolor(features["mcolor"], include_crunch = FALSE))
-		if(DNA_ETHEREAL_COLOR_BLOCK)
-			set_uni_feature_block(blocknumber, sanitize_hexcolor(features["ethcolor"], include_crunch = FALSE))
-		if(DNA_LIZARD_MARKINGS_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.lizard_markings_list.Find(features["lizard_markings"]), length(SSaccessories.lizard_markings_list)))
-		if(DNA_TAIL_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.tails_list_felinid.Find(features["tail_cat"]), length(SSaccessories.tails_list_felinid)))
-		if(DNA_LIZARD_TAIL_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.tails_list_lizard.Find(features["tail_lizard"]), length(SSaccessories.tails_list_lizard)))
-		if(DNA_SNOUT_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.snouts_list.Find(features["snout"]), length(SSaccessories.snouts_list)))
-		if(DNA_HORNS_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.horns_list.Find(features["horns"]), length(SSaccessories.horns_list)))
-		if(DNA_FRILLS_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.frills_list.Find(features["frills"]), length(SSaccessories.frills_list)))
-		if(DNA_SPINES_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.spines_list.Find(features["spines"]), length(SSaccessories.spines_list)))
-		if(DNA_EARS_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.ears_list.Find(features["ears"]), length(SSaccessories.ears_list)))
-		if(DNA_MOTH_WINGS_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.moth_wings_list.Find(features["moth_wings"]), length(SSaccessories.moth_wings_list)))
-		if(DNA_MOTH_ANTENNAE_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.moth_antennae_list.Find(features["moth_antennae"]), length(SSaccessories.moth_antennae_list)))
-		if(DNA_MOTH_MARKINGS_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.moth_markings_list.Find(features["moth_markings"]), length(SSaccessories.moth_markings_list)))
-		if(DNA_MUSHROOM_CAPS_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.caps_list.Find(features["caps"]), length(SSaccessories.caps_list)))
-		if(DNA_POD_HAIR_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.pod_hair_list.Find(features["pod_hair"]), length(SSaccessories.pod_hair_list)))
-		if(DNA_FISH_TAIL_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.tails_list_fish.Find(features["fish_tail"]), length(SSaccessories.tails_list_fish)))
-*/
-//NOVA EDIT REMOVAL END
-=======
 /datum/dna/proc/update_uf_block(blocktype)
 	if(!blocktype)
 		CRASH("UF block type is null")
@@ -398,7 +291,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		CRASH("Non-human mobs shouldn't have DNA")
 	var/datum/dna_block/feature/block = GLOB.dna_feature_blocks[blocktype]
 	unique_features = block.modified_hash(unique_features, block.unique_block(holder))
->>>>>>> b01756b97c4 (Datumizes DNA blocks, makes DNA cleaner in general (#92061)):code/datums/dna/dna.dm
 
 /**
  * Checks if two DNAs are practically the same by comparing their most defining features
@@ -480,12 +372,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 				features[feature] = new_features[feature]
 		NOVA EDIT REMOVAL END */
 
-<<<<<<< HEAD:code/datums/dna.dm
-		features = species.randomize_features() | features // NOVA EDIT CHANGE - Where applicable, replace features with the features generated by species/randomize_features() - Original: features["mcolor"] = "#[random_color()]"
+		features = species.randomize_features() | features // NOVA EDIT CHANGE - Where applicable, replace features with the features generated by species/randomize_features() - Original: features[FEATURE_MUTANT_COLOR] = "#[random_color()]"
 		body_markings = species.get_random_body_markings(features) // NOVA EDIT ADDITION
-=======
-		features[FEATURE_MUTANT_COLOR] = "#[random_color()]"
->>>>>>> b01756b97c4 (Datumizes DNA blocks, makes DNA cleaner in general (#92061)):code/datums/dna/dna.dm
 
 	mutant_bodyparts = species.get_mutant_bodyparts(features, existing_mutant_bodyparts = randomize_features ? list() : mutant_bodyparts) // NOVA EDIT ADDITION
 	update_dna_identity()
@@ -655,86 +543,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(!has_dna())
 		return
 
-<<<<<<< HEAD:code/datums/dna.dm
-	//Always plural gender if agender
-	if(HAS_TRAIT(src, TRAIT_AGENDER))
-		gender = PLURAL
-		return
-
-	switch(deconstruct_block(get_uni_identity_block(dna.unique_identity, DNA_GENDER_BLOCK), GENDERS))
-		if(G_MALE)
-			gender = MALE
-		if(G_FEMALE)
-			gender = FEMALE
-		if(G_NEUTER)
-			gender = NEUTER
-		else
-			gender = PLURAL
-
-//NOVA EDIT REMOVAL BEGIN - CUSTOMIZATION (moved to modular_nova/modules/customization/code/datums/dna.dm)
-/*
-/mob/living/carbon/human/updateappearance(icon_update = TRUE, mutcolor_update = FALSE, mutations_overlay_update = FALSE)
-	..()
-	var/structure = dna.unique_identity
-	skin_tone = GLOB.skin_tones[deconstruct_block(get_uni_identity_block(structure, DNA_SKIN_TONE_BLOCK), GLOB.skin_tones.len)]
-	set_eye_color(sanitize_hexcolor(get_uni_identity_block(structure, DNA_EYE_COLOR_LEFT_BLOCK)), sanitize_hexcolor(get_uni_identity_block(structure, DNA_EYE_COLOR_RIGHT_BLOCK)))
-	set_haircolor(sanitize_hexcolor(get_uni_identity_block(structure, DNA_HAIR_COLOR_BLOCK)), update = FALSE)
-	set_facial_haircolor(sanitize_hexcolor(get_uni_identity_block(structure, DNA_FACIAL_HAIR_COLOR_BLOCK)), update = FALSE)
-	set_hair_gradient_color(sanitize_hexcolor(get_uni_identity_block(structure, DNA_HAIR_COLOR_GRADIENT_BLOCK)), update = FALSE)
-	set_facial_hair_gradient_color(sanitize_hexcolor(get_uni_identity_block(structure, DNA_FACIAL_HAIR_COLOR_GRADIENT_BLOCK)), update = FALSE)
-	if(HAS_TRAIT(src, TRAIT_SHAVED))
-		set_facial_hairstyle("Shaved", update = FALSE)
-	else
-		var/style = SSaccessories.facial_hairstyles_list[deconstruct_block(get_uni_identity_block(structure, DNA_FACIAL_HAIRSTYLE_BLOCK), length(SSaccessories.facial_hairstyles_list))]
-		var/gradient_style = SSaccessories.facial_hair_gradients_list[deconstruct_block(get_uni_identity_block(structure, DNA_FACIAL_HAIRSTYLE_GRADIENT_BLOCK), length(SSaccessories.facial_hair_gradients_list))]
-		set_facial_hairstyle(style, update = FALSE)
-		set_facial_hair_gradient_style(gradient_style, update = FALSE)
-	if(HAS_TRAIT(src, TRAIT_BALD))
-		set_hairstyle("Bald", update = FALSE)
-	else
-		var/style = SSaccessories.hairstyles_list[deconstruct_block(get_uni_identity_block(structure, DNA_HAIRSTYLE_BLOCK), length(SSaccessories.hairstyles_list))]
-		var/gradient_style = SSaccessories.hair_gradients_list[deconstruct_block(get_uni_identity_block(structure, DNA_HAIRSTYLE_GRADIENT_BLOCK), length(SSaccessories.hair_gradients_list))]
-		set_hairstyle(style, update = FALSE)
-		set_hair_gradient_style(gradient_style, update = FALSE)
-	var/features = dna.unique_features
-	if(dna.features["mcolor"])
-		dna.features["mcolor"] = sanitize_hexcolor(get_uni_feature_block(features, DNA_MUTANT_COLOR_BLOCK))
-	if(dna.features["ethcolor"])
-		dna.features["ethcolor"] = sanitize_hexcolor(get_uni_feature_block(features, DNA_ETHEREAL_COLOR_BLOCK))
-	if(dna.features["lizard_markings"])
-		dna.features["lizard_markings"] = SSaccessories.lizard_markings_list[deconstruct_block(get_uni_feature_block(features, DNA_LIZARD_MARKINGS_BLOCK), length(SSaccessories.lizard_markings_list))]
-	if(dna.features["snout"])
-		dna.features["snout"] = SSaccessories.snouts_list[deconstruct_block(get_uni_feature_block(features, DNA_SNOUT_BLOCK), length(SSaccessories.snouts_list))]
-	if(dna.features["horns"])
-		dna.features["horns"] = SSaccessories.horns_list[deconstruct_block(get_uni_feature_block(features, DNA_HORNS_BLOCK), length(SSaccessories.horns_list))]
-	if(dna.features["frills"])
-		dna.features["frills"] = SSaccessories.frills_list[deconstruct_block(get_uni_feature_block(features, DNA_FRILLS_BLOCK), length(SSaccessories.frills_list))]
-	if(dna.features["spines"])
-		dna.features["spines"] = SSaccessories.spines_list[deconstruct_block(get_uni_feature_block(features, DNA_SPINES_BLOCK), length(SSaccessories.spines_list))]
-	if(dna.features["tail_cat"])
-		dna.features["tail_cat"] = SSaccessories.tails_list_felinid[deconstruct_block(get_uni_feature_block(features, DNA_TAIL_BLOCK), length(SSaccessories.tails_list_felinid))]
-	if(dna.features["tail_lizard"])
-		dna.features["tail_lizard"] = SSaccessories.tails_list_lizard[deconstruct_block(get_uni_feature_block(features, DNA_LIZARD_TAIL_BLOCK), length(SSaccessories.tails_list_lizard))]
-	if(dna.features["ears"])
-		dna.features["ears"] = SSaccessories.ears_list[deconstruct_block(get_uni_feature_block(features, DNA_EARS_BLOCK), length(SSaccessories.ears_list))]
-	if(dna.features["moth_wings"])
-		var/genetic_value = SSaccessories.moth_wings_list[deconstruct_block(get_uni_feature_block(features, DNA_MOTH_WINGS_BLOCK), length(SSaccessories.moth_wings_list))]
-		dna.features["original_moth_wings"] = genetic_value
-		dna.features["moth_wings"] = genetic_value
-	if(dna.features["moth_antennae"])
-		var/genetic_value = SSaccessories.moth_antennae_list[deconstruct_block(get_uni_feature_block(features, DNA_MOTH_ANTENNAE_BLOCK), length(SSaccessories.moth_antennae_list))]
-		dna.features["original_moth_antennae"] = genetic_value
-		if(dna.features["moth_antennae"] != "Burnt Off")
-			dna.features["moth_antennae"] = genetic_value
-	if(dna.features["moth_markings"])
-		dna.features["moth_markings"] = SSaccessories.moth_markings_list[deconstruct_block(get_uni_feature_block(features, DNA_MOTH_MARKINGS_BLOCK), length(SSaccessories.moth_markings_list))]
-	if(dna.features["caps"])
-		dna.features["caps"] = SSaccessories.caps_list[deconstruct_block(get_uni_feature_block(features, DNA_MUSHROOM_CAPS_BLOCK), length(SSaccessories.caps_list))]
-	if(dna.features["pod_hair"])
-		dna.features["pod_hair"] = SSaccessories.pod_hair_list[deconstruct_block(get_uni_feature_block(features, DNA_POD_HAIR_BLOCK), length(SSaccessories.pod_hair_list))]
-	if(dna.features["fish_tail"])
-		dna.features["fish_tail"] = SSaccessories.tails_list_fish[deconstruct_block(get_uni_feature_block(features, DNA_FISH_TAIL_BLOCK), length(SSaccessories.tails_list_fish))]
-=======
 /mob/living/carbon/human/updateappearance(icon_update = TRUE, mutcolor_update = FALSE, mutations_overlay_update = FALSE)
 	. = ..()
 	for(var/block_type in GLOB.dna_identity_blocks)
@@ -745,20 +553,14 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		var/datum/dna_block/feature/block_to_apply = GLOB.dna_feature_blocks[block_type]
 		if(dna.features[block_to_apply.feature_key])
 			block_to_apply.apply_to_mob(src, dna.unique_features)
->>>>>>> b01756b97c4 (Datumizes DNA blocks, makes DNA cleaner in general (#92061)):code/datums/dna/dna.dm
 
 	for(var/obj/item/organ/organ in organs)
 		organ.mutate_feature(dna.unique_features, src)
 
 	if(icon_update)
 		update_body(is_creating = mutcolor_update)
-<<<<<<< HEAD:code/datums/dna.dm
-*/
-//NOVA EDIT REMOVAL END
-=======
 	if(mutations_overlay_update)
 		update_mutations_overlay()
->>>>>>> b01756b97c4 (Datumizes DNA blocks, makes DNA cleaner in general (#92061)):code/datums/dna/dna.dm
 
 /mob/proc/domutcheck()
 	return
@@ -875,16 +677,10 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /mob/living/carbon/proc/random_mutate_unique_identity()
 	if(!has_dna())
 		CRASH("[src] does not have DNA")
-<<<<<<< HEAD:code/datums/dna.dm
-	var/num = rand(1, DNA_UNI_IDENTITY_BLOCKS)
-	dna.set_uni_identity_block(num, random_string(GET_UI_BLOCK_LEN(num), GLOB.hex_characters))
-	updateappearance(mutations_overlay_update=1)
-=======
 	var/mutblock_path = pick(GLOB.dna_identity_blocks)
 	var/datum/dna_block/identity/mutblock = GLOB.dna_identity_blocks[mutblock_path]
 	dna.unique_identity = mutblock.modified_hash(dna.unique_identity, random_string(mutblock.block_length, GLOB.hex_characters))
 	updateappearance(mutations_overlay_update = TRUE)
->>>>>>> b01756b97c4 (Datumizes DNA blocks, makes DNA cleaner in general (#92061)):code/datums/dna/dna.dm
 
 /mob/living/carbon/proc/random_mutate_unique_features()
 	if(!has_dna())
@@ -917,11 +713,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		for(var/block_id in GLOB.dna_identity_blocks)
 			var/datum/dna_block/identity/block = GLOB.dna_identity_blocks[block_id]
 			if(prob(probability))
-<<<<<<< HEAD:code/datums/dna.dm
-				M.dna.set_uni_identity_block(blocknum, random_string(GET_UI_BLOCK_LEN(blocknum), GLOB.hex_characters))
-=======
 				M.dna.unique_identity = block.modified_hash(M.dna.unique_identity, random_string(block.block_length, GLOB.hex_characters))
->>>>>>> b01756b97c4 (Datumizes DNA blocks, makes DNA cleaner in general (#92061)):code/datums/dna/dna.dm
 	if(uf)
 		for(var/block_id in GLOB.dna_feature_blocks)
 			var/datum/dna_block/feature/block = GLOB.dna_feature_blocks[block_id]
