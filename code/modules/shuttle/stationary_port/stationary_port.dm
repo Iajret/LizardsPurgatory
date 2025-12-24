@@ -35,6 +35,15 @@
 	initial_y = y
 	initial_z = z
 
+	if(istype(get_area(src), /area/space/nearstation))
+		var/turf/our_turf = get_turf(src)
+		var/area/near_area
+		for(var/direction in GLOB.alldirs)
+			var/turf/target_turf = get_step(our_turf, direction)
+			if(!istype(get_area(target_turf), /area/space))
+				near_area = get_area(target_turf)
+		CRASH("Shuttle Port in Nearstation area found at [src.x], [src.y], [src.z]. Near area of note is [near_area ? near_area.name : "space.."]. It will cause gas_mixture of a turf to be turned in to immutable space vaccum.")
+
 	if(SSshuttle.initialized)
 		return INITIALIZE_HINT_LATELOAD
 
