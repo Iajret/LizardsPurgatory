@@ -67,6 +67,7 @@
 	for(var/path in valid_subtypesof(/datum/robotic_style))
 		var/datum/robotic_style/style = path
 		GLOB.robotic_styles_list[style::name] = new style()
+		GLOB.limb_style_icons[style::name] = style::icon
 
 /proc/init_nova_stack_recipes()
 	var/list/additional_stack_recipes = list(

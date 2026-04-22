@@ -45,3 +45,6 @@ GLOBAL_LIST_EMPTY(erp_items)
 
 // Gas base value overrides
 GLOBAL_LIST_EMPTY(gas_base_values)
+
+// spraycan limb icon list
+GLOBAL_LIST_EMPTY(limb_style_icons)

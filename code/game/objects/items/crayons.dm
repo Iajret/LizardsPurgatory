@@ -1013,7 +1013,7 @@
 		"mining" = 'icons/mob/augmentation/augments_mining.dmi',
 		)
 	*/ // NOVA EDIT REMOVAL END
-	var/static/list/style_list_icons = GLOB.robotic_styles_list //NOVA EDIT ADDITION
+	var/static/list/style_list_icons = GLOB.limb_style_icons //NOVA EDIT ADDITION
 
 	for(var/skin_option in style_list_icons)
 		var/image/part_image = image(icon = style_list_icons[skin_option], icon_state = "[limb.limb_id]_[limb.body_zone]")
