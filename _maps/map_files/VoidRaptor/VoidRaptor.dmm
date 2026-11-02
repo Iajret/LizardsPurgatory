@@ -32023,6 +32023,9 @@
 /obj/structure/cable,
 /turf/open/floor/iron/freezer,
 /area/station/security/checkpoint/medical)
+"jfm" = (
+/turf/open/floor/circuit/green/xenobio,
+/area/station/science/xenobiology)
 "jfo" = (
 /obj/effect/turf_decal/trimline/green/filled/line,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
@@ -105779,7 +105782,7 @@ axD
 kVR
 eCK
 eCK
-tAl
+jfm
 eCK
 eCK
 aIs
